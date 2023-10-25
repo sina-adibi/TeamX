@@ -42,13 +42,12 @@ class HomeActivity : AppCompatActivity() {
             finish()
         }
 
-//        val composeView = findViewById<ComposeView>(R.id.composeView)
-//        val apiBtn = findViewById<Button>(R.id.ApiBtn)
-//        apiBtn.setOnClickListener {
-//            composeView.setContent {
-//                Text(text = "Hello from Compose!")
-//            }
-//        }
+        val ApiScreen= Intent(this@HomeActivity, api_screen::class.java)
+        val apiBtn = findViewById<Button>(R.id.ApiBtn)
+        apiBtn.setOnClickListener {
+            startActivity(ApiScreen)
+            finish()
+        }
 
     }
 }
