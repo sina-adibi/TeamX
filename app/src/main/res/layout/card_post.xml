@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="hello title"
+        android:textAlignment="textEnd"
         android:textSize="20sp" />
 
     <TextView
@@ -19,6 +20,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="hello body"
-        android:textSize="16dp" />
+        android:textSize="32sp" />
+
+    <TextView
+        android:id="@+id/tvSeen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="hello seen"
+        android:textAlignment="textStart"
+        android:textSize="20sp" />
 
 </LinearLayout>

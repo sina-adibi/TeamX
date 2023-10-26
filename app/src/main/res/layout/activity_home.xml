@@ -29,11 +29,15 @@
     <Button
         android:id="@+id/ApiBtn"
         android:layout_width="370dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/idBtnLogout"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="21dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="211dp"
         android:text="go to api screen"
         tools:ignore="VisualLintButtonSize" />
 

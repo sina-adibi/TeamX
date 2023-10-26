@@ -24,12 +24,13 @@ class api_screen : AppCompatActivity() {
         val serviceGenerator = ServiceGenerator.buildService(ApiService::class.java)
         val call = serviceGenerator.getPosts()
 
-        call.enqueue(object : retrofit2.Callback<MutableList<PostModel>> {
+        call.enqueue(object : retrofit2.Callback<List<PostModel>> {
             override fun onResponse(
-                call: Call<MutableList<PostModel>>,
-                response: retrofit2.Response<MutableList<PostModel>>
+                call: Call<List<PostModel>>,
+                response: retrofit2.Response<List<PostModel>>
             ) {
                 if (response.isSuccessful) {
+                    Log.e("success",response.body().toString())
                     recyclerView.apply {
                         layoutManager = LinearLayoutManager(this@api_screen)
                         adapter = PostAdapter(response.body()!!)
@@ -37,7 +38,7 @@ class api_screen : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<MutableList<PostModel>>, t: Throwable) {
+            override fun onFailure(call: Call<List<PostModel>>, t: Throwable) {
                 t.printStackTrace()
                 Log.e("error", t.message.toString())
 
