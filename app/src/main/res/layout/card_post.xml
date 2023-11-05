@@ -22,12 +22,10 @@
         android:text="hello body"
         android:textSize="32sp" />
 
-    <TextView
-        android:id="@+id/tvSeen"
+    <Button
+        android:id="@+id/btSeen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hello seen"
-        android:textAlignment="textStart"
-        android:textSize="20sp" />
+        android:text="Button" />
 
 </LinearLayout>

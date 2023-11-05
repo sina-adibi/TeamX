@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import androidx.compose.material.Text
-import androidx.compose.ui.platform.ComposeView
 
 class HomeActivity : AppCompatActivity() {
     companion object {
@@ -42,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
             finish()
         }
 
-        val ApiScreen= Intent(this@HomeActivity, api_screen::class.java)
+        val ApiScreen= Intent(this@HomeActivity, ApiScreen::class.java)
         val apiBtn = findViewById<Button>(R.id.ApiBtn)
         apiBtn.setOnClickListener {
             startActivity(ApiScreen)
