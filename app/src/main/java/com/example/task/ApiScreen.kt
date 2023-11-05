@@ -1,8 +1,10 @@
 package com.example.task
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +26,7 @@ class ApiScreen : AppCompatActivity() {
     private lateinit var postViewModel: PostViewModel
     private lateinit var postDao: PostDao
     private lateinit var recyclerView: RecyclerView
+    private lateinit var context: Context // New variable to store context reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +56,11 @@ class ApiScreen : AppCompatActivity() {
                     }
                     recyclerView.adapter = PostAdapter(posts ?: emptyList())
 
-                } else {
                 }
             }
 
             override fun onFailure(call: Call<List<PostEntity>>, t: Throwable) {
+                Toast.makeText(context,"error", Toast.LENGTH_SHORT).show()
             }
         })
         postDao.getAllPosts().observe(this, Observer<List<PostEntity>> { posts ->
