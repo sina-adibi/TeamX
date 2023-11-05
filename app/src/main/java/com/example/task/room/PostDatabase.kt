@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase
 @Database(entities = [PostEntity::class], version = 3)
 abstract class PostDatabase : RoomDatabase() {
     abstract fun postDao(): PostDao
+
     companion object {
         @Volatile
         private var INSTANCE: PostDatabase? = null
@@ -26,7 +27,6 @@ abstract class PostDatabase : RoomDatabase() {
                 }
                 return instance!!
             }
-
         }
     }
 }

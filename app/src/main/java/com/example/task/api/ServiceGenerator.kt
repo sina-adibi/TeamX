@@ -25,5 +25,6 @@ object ServiceGenerator {
 interface ApiService {
     @GET("/api/general/v1/echo")
     fun getPosts(): Call<List<PostEntity>>
+
 }
 

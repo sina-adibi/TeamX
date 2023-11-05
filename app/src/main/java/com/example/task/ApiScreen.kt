@@ -3,6 +3,7 @@ package com.example.task
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,25 +37,31 @@ class ApiScreen : AppCompatActivity() {
 
         val serviceGenerator = ServiceGenerator.buildService(ApiService::class.java)
         val call = serviceGenerator.getPosts()
-
         call.enqueue(object : Callback<List<PostEntity>> {
-            override fun onResponse(call: Call<List<PostEntity>>, response: Response<List<PostEntity>>) {
+            override fun onResponse(
+                call: Call<List<PostEntity>>,
+                response: Response<List<PostEntity>>
+            ) {
                 if (response.isSuccessful) {
                     val posts = response.body()
                     posts?.let { posts ->
                         GlobalScope.launch {
                             for (post in posts) {
-                                postViewModel.insertData(postDao, post.id, post.saveDate, post.message, post.seen)
+                                postDao.insertPost(post)
                             }
                         }
                     }
                     recyclerView.adapter = PostAdapter(posts ?: emptyList())
+
                 } else {
                 }
             }
 
             override fun onFailure(call: Call<List<PostEntity>>, t: Throwable) {
             }
+        })
+        postDao.getAllPosts().observe(this, Observer<List<PostEntity>> { posts ->
+            recyclerView.adapter = PostAdapter(posts)
         })
     }
 }

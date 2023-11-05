@@ -67,5 +67,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
 
     implementation ("androidx.room:room-ktx:2.6.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
 
 }

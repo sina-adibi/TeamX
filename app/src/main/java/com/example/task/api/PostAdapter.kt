@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task.R
+import com.example.task.room.PostDatabase
 import com.example.task.room.PostEntity
 
 class PostAdapter(val postEntityModel: List<PostEntity>) : RecyclerView.Adapter<PostViewHolder>() {
@@ -17,6 +18,9 @@ class PostAdapter(val postEntityModel: List<PostEntity>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        return holder.bindView(postEntityModel[position])
+        val context = holder.itemView.context
+        val postDao = PostDatabase.getInstance(context).postDao()
+        val postEntity = postEntityModel[position]
+        holder.bindView(postEntity, postDao)
     }
 }

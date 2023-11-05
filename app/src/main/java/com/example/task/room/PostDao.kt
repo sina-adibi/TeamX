@@ -5,15 +5,20 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.task.room.Constant.POST_TABLE
 
 @Dao
 interface PostDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPost(postEntity: PostEntity)
 
-    @Query("SELECT * FROM post_table")
-    fun getAllPosts(): LiveData<PostEntity>?
-    @Query("SELECT COUNT(*) FROM post_table")
+    @Query("UPDATE $POST_TABLE SET seen = :newSeen WHERE id = :postId")
+    suspend fun updatePostSeen(postId: Int, newSeen: String)
+
+    @Query("SELECT * FROM $POST_TABLE")
+    fun getAllPosts(): LiveData<List<PostEntity>>
+
+    @Query("SELECT COUNT(*) FROM $POST_TABLE")
     fun getPostCount(): LiveData<Int>
 }
 
