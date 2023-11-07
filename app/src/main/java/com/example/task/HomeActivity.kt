@@ -28,13 +28,12 @@ class HomeActivity : AppCompatActivity() {
 
         val welcomeTV = findViewById<TextView>(R.id.idTVWelcome)
         welcomeTV.text = "Welcome $email"
+
         val logoutBtn = findViewById<Button>(R.id.idBtnLogout)
         logoutBtn.setOnClickListener {
             val editor = sharedpreferences.edit()
-
             editor.clear()
             editor.apply()
-
             val i = Intent(this@HomeActivity, MainActivity::class.java)
             startActivity(i)
             finish()

@@ -15,6 +15,7 @@ import com.example.task.room.PostDao
 import com.example.task.room.PostDatabase
 import com.example.task.room.PostEntity
 import com.example.task.room.PostViewModel
+import com.jakewharton.threetenabp.AndroidThreeTen
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -29,6 +30,8 @@ class ApiScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_api_screen)
+
+        AndroidThreeTen.init(this)
 
         postDao = PostDatabase.getInstance(this).postDao()
         postViewModel = ViewModelProvider(this).get(PostViewModel::class.java)

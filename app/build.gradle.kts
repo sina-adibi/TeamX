@@ -48,6 +48,7 @@ dependencies {
     implementation("androidx.annotation:annotation:1.6.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("com.google.firebase:protolite-well-known-types:18.0.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -69,4 +70,6 @@ dependencies {
     implementation ("androidx.room:room-ktx:2.6.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
 
+    implementation ("joda-time:joda-time:2.10.13")
+    implementation ("com.voicer.persiancalendar:java-persiancalendar:2.1")
 }

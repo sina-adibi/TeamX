@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
                 editor.apply()
 
-                val i = Intent(this@MainActivity, HomeActivity::class.java)
+                val i = Intent(this@MainActivity, ApiScreen::class.java)
                 startActivity(i)
                 finish()
             }
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (email != null && password != null) {
-            val i = Intent(this@MainActivity, HomeActivity::class.java)
+            val i = Intent(this@MainActivity, ApiScreen::class.java)
             startActivity(i)
             finish()
         }

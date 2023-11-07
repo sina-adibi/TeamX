@@ -1,37 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFC107"
-    android:layout_marginTop="8dp"
+    android:background="#EDE7F6"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="16dp"
+    android:layout_margin="5dp">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hello title"
-        android:textAlignment="textEnd"
-        android:textSize="20sp" />
+        android:text="Hello, Title!"
+        android:textAlignment="center"
+        android:textColor="#512DA8"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hello body"
-        android:textSize="32sp" />
+        android:text="Hello, Body!"
+        android:textSize="26sp"
+        android:textColor="#311B92" />
 
     <Button
         android:id="@+id/btSeen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="Mark as Seen"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/btDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Detail" />
+        android:text="جزئیات"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_rounded"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>
