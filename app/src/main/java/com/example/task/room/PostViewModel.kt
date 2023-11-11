@@ -3,6 +3,7 @@ package com.example.task.room
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
+import java.util.Date
 
 class PostViewModel : ViewModel() {
 
@@ -16,6 +17,15 @@ class PostViewModel : ViewModel() {
         seen: String
     ) {
         PostRepository.insertData(postDao, id, saveDate, message, seen)
+    }
+    suspend fun insertMessage(
+        postDao: PostDao,
+        id: Int,
+        saveDate: String ,
+        message: String,
+        seen: String
+    ) {
+        PostRepository.insertMessage(postDao, id, saveDate, message, seen)
     }
 
     fun getAllPosts(postDao: PostDao): LiveData<PostEntity>? {

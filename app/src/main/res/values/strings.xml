@@ -4,4 +4,5 @@
     <string name="enter_password">Enter password</string>
     <string name="enter_youe_email">Enter your Email</string>
     <string name="logout">Logout</string>
+    <string name="delete">delete</string>
 </resources>

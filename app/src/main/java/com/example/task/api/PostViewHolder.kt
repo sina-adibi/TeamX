@@ -1,32 +1,22 @@
 package com.example.task.api
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.OvalShape
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.task.ApiScreen
 import com.example.task.DetailScreen
 import com.example.task.R
 import com.example.task.room.PostDao
 import com.example.task.room.PostDatabase
 import com.example.task.room.PostEntity
-import com.google.type.DateTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.joda.time.format.DateTimeFormat
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.GregorianCalendar
 import java.util.Locale
 
 class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

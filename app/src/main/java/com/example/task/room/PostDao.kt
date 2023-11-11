@@ -11,6 +11,8 @@ import com.example.task.room.Constant.POST_TABLE
 interface PostDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPost(postEntity: PostEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertMessage(post: PostEntity)
 
     @Query("UPDATE $POST_TABLE SET seen = :newSeen WHERE id = :postId")
     suspend fun updatePostSeen(postId: Int, newSeen: String)

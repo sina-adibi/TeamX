@@ -70,6 +70,4 @@ dependencies {
     implementation ("androidx.room:room-ktx:2.6.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
 
-    implementation ("joda-time:joda-time:2.10.13")
-    implementation ("com.voicer.persiancalendar:java-persiancalendar:2.1")
 }
