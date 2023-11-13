@@ -1,24 +1,18 @@
 package com.example.task.utils
 
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
-import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.example.task.R
 import com.example.task.api.ApiService
 import com.example.task.api.PostAdapter
 import com.example.task.api.ServiceGenerator
-import com.example.task.room.Constant
 import com.example.task.room.PostDao
 import com.example.task.room.PostDatabase
 import com.example.task.room.PostEntity
@@ -83,12 +77,14 @@ fun openDialog(
                                     }
                                 }
                             }
-                            recyclerView.adapter = PostAdapter(posts ?: emptyList())
+                            if (posts != null) {
+                                recyclerView.adapter = PostAdapter(posts.toMutableList())
+                            }
 
                         }
                         postDao.getAllPosts()
                             .observe(lifecycleOwner) { posts ->
-                                recyclerView.adapter = PostAdapter(posts)
+                                recyclerView.adapter = PostAdapter(posts.toMutableList())
                             }
                     }
 

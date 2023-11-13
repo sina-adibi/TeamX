@@ -22,6 +22,11 @@ interface PostDao {
 
     @Query("SELECT COUNT(*) FROM $POST_TABLE")
     fun getPostCount(): LiveData<Int>
+
+    @Query("DELETE FROM $POST_TABLE WHERE id = :postId")
+    suspend fun deletePost(postId: Int)
+
+
 }
 
 

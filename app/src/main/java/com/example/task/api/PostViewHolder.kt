@@ -1,8 +1,10 @@
 package com.example.task.api
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -13,6 +15,7 @@ import com.example.task.R
 import com.example.task.room.PostDao
 import com.example.task.room.PostDatabase
 import com.example.task.room.PostEntity
+import com.example.task.utils.btDialogDelete
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,8 +27,16 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvBody: TextView = itemView.findViewById(R.id.tvBody)
     private val btSeen: Button = itemView.findViewById(R.id.btSeen)
     private val btDetail: Button = itemView.findViewById(R.id.btDetail)
-
-    fun bindView(postEntity: PostEntity, postDao: PostDao) {
+    val btnDeleteDialog: Button = itemView.findViewById(R.id.btDelete)
+    val postEntityModel: MutableList<PostEntity> = mutableListOf()
+    fun bindView(
+        context: Context,
+        postEntity: PostEntity,
+        postDao: PostDao,
+        postAdapter: PostAdapter,
+        newData: List<PostEntity>,
+        updateCallback: () -> Unit,
+    ) {
 
         val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val outputFormat = SimpleDateFormat("MMM dd, yyyy 'at' h:mm a", Locale.getDefault())
@@ -48,7 +59,7 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         btSeen.setOnClickListener {
-            val updatedSeenValue = if (postEntity.seen == "0") "1" else "1"
+            val updatedSeenValue = if (postEntity.seen == "0") "1" else "0"
             postEntity.seen = updatedSeenValue
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -63,7 +74,6 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 btSeen.text = "پیام خوانده نشده"
                 btSeen.background.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN)
             }
-
         }
 
         btDetail.setOnClickListener {
@@ -72,5 +82,13 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             itemView.context.startActivity(detailIntent)
         }
 
+
+        btnDeleteDialog.setOnClickListener {
+            try {
+                btDialogDelete(context, postEntity.id, postDao, postAdapter, updateCallback)
+            } catch (e: Exception) {
+                Log.e("DeleteDialog", "Error deleting post: ${e.message}")
+            }
+        }
     }
 }
