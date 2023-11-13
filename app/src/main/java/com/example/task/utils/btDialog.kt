@@ -1,28 +1,32 @@
 package com.example.task.utils
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.task.R
 import com.example.task.api.ApiService
 import com.example.task.api.PostAdapter
 import com.example.task.api.ServiceGenerator
+import com.example.task.room.Constant
 import com.example.task.room.PostDao
 import com.example.task.room.PostDatabase
 import com.example.task.room.PostEntity
 import com.example.task.room.PostViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,8 +37,8 @@ import java.util.Date
 fun openDialog(
     layoutInflater: LayoutInflater,
     activity: Activity,
-    messageInsertCallback: MessageInsertCallback
-
+    recyclerView: RecyclerView,
+    lifecycleOwner: LifecycleOwner
 ) {
 
     val dialogBuilder = android.app.AlertDialog.Builder(activity)
@@ -63,13 +67,38 @@ fun openDialog(
             postEntity = PostEntity(0, DateText, inputText, SeenText)
             GlobalScope.launch {
                 postDao.insertMessage(postEntity)
-                withContext(Dispatchers.Main) {
-                    messageInsertCallback.onMessageInserted(postEntity)
-                }
+                val serviceGenerator = ServiceGenerator.buildService(ApiService::class.java)
+                val call = serviceGenerator.getPosts()
+                call.enqueue(object : Callback<List<PostEntity>> {
+                    override fun onResponse(
+                        call: Call<List<PostEntity>>,
+                        response: Response<List<PostEntity>>
+                    ) {
+                        if (response.isSuccessful) {
+                            val posts = response.body()
+                            posts?.let { posts ->
+                                GlobalScope.launch {
+                                    for (post in posts) {
+                                        postDao.insertPost(post)
+                                    }
+                                }
+                            }
+                            recyclerView.adapter = PostAdapter(posts ?: emptyList())
+
+                        }
+                        postDao.getAllPosts()
+                            .observe(lifecycleOwner) { posts ->
+                                recyclerView.adapter = PostAdapter(posts)
+                            }
+                    }
+
+                    override fun onFailure(call: Call<List<PostEntity>>, t: Throwable) {
+                    }
+                })
             }
             alertDialog.dismiss()
         } else {
-            Snackbar.make(it, "Message cannot be Empty", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(it, "Massage cannot be Empty", Snackbar.LENGTH_LONG).show()
         }
     }
 }
