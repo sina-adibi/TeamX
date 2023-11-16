@@ -1,4 +1,4 @@
-package com.example.task.utils
+package com.example.task.room
 
 import com.example.task.room.PostEntity
 

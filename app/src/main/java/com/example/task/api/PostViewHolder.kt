@@ -28,7 +28,6 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val btSeen: Button = itemView.findViewById(R.id.btSeen)
     private val btDetail: Button = itemView.findViewById(R.id.btDetail)
     val btnDeleteDialog: Button = itemView.findViewById(R.id.btDelete)
-    val postEntityModel: MutableList<PostEntity> = mutableListOf()
     fun bindView(
         context: Context,
         postEntity: PostEntity,
@@ -59,7 +58,7 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         btSeen.setOnClickListener {
-            val updatedSeenValue = if (postEntity.seen == "0") "1" else "0"
+            val updatedSeenValue = if (postEntity.seen == "0") "1" else "1"
             postEntity.seen = updatedSeenValue
 
             CoroutineScope(Dispatchers.IO).launch {
