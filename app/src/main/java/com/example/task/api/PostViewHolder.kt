@@ -9,9 +9,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.task.DetailScreen
 import com.example.task.R
+import com.example.task.fragment.ApiScreenFragmentDirections
 import com.example.task.room.PostDao
 import com.example.task.room.PostDatabase
 import com.example.task.room.PostEntity
@@ -76,11 +77,18 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
 
         btDetail.setOnClickListener {
-            val detailIntent = Intent(itemView.context, DetailScreen::class.java)
-            detailIntent.putExtra("post_message", postEntity.message)
-            itemView.context.startActivity(detailIntent)
+            val message = postEntity.message
+            Log.d("MessageCheckkkkkkkkkkkkkk", "Message is: $message")
+            val action = ApiScreenFragmentDirections.actionApiScreenFragmentToDetailScreen(message)
+            itemView.findNavController().navigate(action)
         }
 
+
+//        val action = ApiScreenFragmentDirections.actionApiScreenFragmentToDetailScreen(postEntity.message)
+//            itemView.findNavController().navigate(action)
+//            val detailIntent = Intent(itemView.context, DetailScreen::class.java)
+//            detailIntent.putExtra("post_message", postEntity.message)
+//            itemView.context.startActivity(detailIntent)
 
         btnDeleteDialog.setOnClickListener {
             try {

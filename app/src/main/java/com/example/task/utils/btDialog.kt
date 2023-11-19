@@ -3,6 +3,7 @@ package com.example.task.utils
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -29,9 +30,7 @@ fun openDialog(
     layoutInflater: LayoutInflater,
     activity: Activity,
     messageInsertCallback: MessageInsertCallback
-
 ) {
-
     val dialogBuilder = AlertDialog.Builder(activity)
     dialogBuilder.setTitle("Insert Message")
     dialogBuilder.setPositiveButton("OK") { dialog: DialogInterface, _: Int ->
@@ -58,11 +57,9 @@ fun openDialog(
             postEntity = PostEntity(0, DateText, inputText, SeenText)
             GlobalScope.launch {
                 postDao.insertMessage(postEntity)
-
                 withContext(Dispatchers.Main) {
                     messageInsertCallback.onMessageInserted(postEntity)
                 }
-
             }
             alertDialog.dismiss()
         } else {

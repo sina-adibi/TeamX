@@ -1,7 +1,10 @@
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    id("androidx.navigation.safeargs")
+
 }
 
 android {
@@ -70,4 +73,7 @@ dependencies {
     implementation ("androidx.room:room-ktx:2.6.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
 
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.7.5")
+//    classpath ("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5")
 }

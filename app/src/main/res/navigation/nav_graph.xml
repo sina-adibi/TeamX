@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.task.fragment.SplashScreen"
+        android:label="SplashScreenFragment"
+        tools:layout="@layout/fragment_splash_screen">
+        <action
+            android:id="@+id/action_SplashToLogin"
+            app:destination="@id/loginScreenFragment"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginScreenFragment"
+        android:name="com.example.task.fragment.LoginScreenFragment"
+        android:label="LoginScreenFragment"
+        tools:layout="@layout/fragment_login_screen" >
+        <action
+            android:id="@+id/action_loginScreenFragment_to_apiScreenFragment"
+            app:destination="@id/apiScreenFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/apiScreenFragment"
+        android:name="com.example.task.fragment.ApiScreenFragment"
+        android:label="ApiScreenFragment"
+        tools:layout="@layout/fragment_api_screen">
+        <action
+            android:id="@+id/action_apiScreenFragment_to_detailScreen"
+            app:destination="@id/detailScreenFragment">
+            <argument
+                android:name="post_message"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/detailScreenFragment"
+        android:name="com.example.task.fragment.DetailScreen"
+        android:label="DetailScreenFragment"
+        tools:layout="@layout/fragment_detail_screen" />
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="com.example.task.fragment.HomeScreen"
+        android:label="HomeScreenFragment"
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_homeScreenFragment_to_apiScreenFragment"
+            app:destination="@id/apiScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_loginScreenFragment"
+            app:destination="@id/loginScreenFragment" />
+    </fragment>
+
+</navigation>

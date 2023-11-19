@@ -40,7 +40,6 @@ fun btDialogDelete(
 
     val builder = AlertDialog.Builder(context)
     with(builder) {
-        setTitle("مطمئنید؟")
         setTitle("Confirmation")
         setMessage("Are you sure you want to delete this post?")
         setPositiveButton("Delete", positiveButtonClick)

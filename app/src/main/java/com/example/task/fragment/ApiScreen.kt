@@ -1,21 +1,26 @@
-package com.example.task
+package com.example.task.fragment
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
-
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.task.R
 import com.example.task.api.ApiService
 import com.example.task.api.PostAdapter
 import com.example.task.api.ServiceGenerator
+import com.example.task.room.MessageInsertCallback
 import com.example.task.room.PostDao
 import com.example.task.room.PostDatabase
 import com.example.task.room.PostEntity
 import com.example.task.room.PostViewModel
-import com.example.task.room.MessageInsertCallback
 import com.example.task.utils.openDialog
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -23,7 +28,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ApiScreen : AppCompatActivity(), MessageInsertCallback {
+
+class ApiScreenFragment : Fragment(), MessageInsertCallback {
+
     private lateinit var postViewModel: PostViewModel
     private lateinit var postDao: PostDao
     private lateinit var recyclerView: RecyclerView
@@ -31,15 +38,14 @@ class ApiScreen : AppCompatActivity(), MessageInsertCallback {
 
     var isApiCalled = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_api_screen)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_api_screen, container, false)
 
-        postDao = PostDatabase.getInstance(this).postDao()
-        postViewModel = ViewModelProvider(this).get(PostViewModel::class.java)
+        postDao = PostDatabase.getInstance(requireContext()).postDao()
+        postViewModel = ViewModelProvider(requireActivity()).get(PostViewModel::class.java)
 
-        recyclerView = findViewById(R.id.myRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView = view.findViewById(R.id.myRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         if (!isApiCalled) {
             val serviceGenerator = ServiceGenerator.buildService(ApiService::class.java)
@@ -61,31 +67,24 @@ class ApiScreen : AppCompatActivity(), MessageInsertCallback {
                 }
 
                 override fun onFailure(call: Call<List<PostEntity>>, t: Throwable) {
+                    // Handle failure
                 }
             })
             isApiCalled = true
         }
 
-        postDao.getAllPosts().observe(this, Observer<List<PostEntity>> { posts ->
+        postDao.getAllPosts().observe(viewLifecycleOwner, Observer<List<PostEntity>> { posts ->
             recyclerView.adapter = PostAdapter(posts.toMutableList())
         })
 
-        val btnOpenDialog: Button = findViewById(R.id.btDialog)
+        val btnOpenDialog: Button = view.findViewById(R.id.btDialog)
         btnOpenDialog.setOnClickListener {
-            openDialog(
-                layoutInflater,
-                this,
-                this
-            )
+            openDialog(layoutInflater, requireActivity(), this)
         }
+        return view
     }
 
     override fun onMessageInserted(postEntity: PostEntity) {
-        runOnUiThread {
-            postAdapter.addMessage(postEntity)
-        }
+        postAdapter.addMessage(postEntity)
     }
 }
-
-
-

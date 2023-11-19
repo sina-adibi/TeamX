@@ -49,7 +49,7 @@ class PostAdapter(private val postEntityModel: MutableList<PostEntity>) :
 
 
     override fun getItemViewType(position: Int): Int {
-        return R.layout.activity_api_screen
+        return R.layout.fragment_api_screen
 
     }
 
