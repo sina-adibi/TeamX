@@ -1,9 +1,9 @@
-package com.example.task.room
+package com.example.task.Model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.task.room.Constant.POST_TABLE
+import com.example.task.Model.Constant.POST_TABLE
 
 @Entity(tableName = POST_TABLE)
 data class PostEntity(

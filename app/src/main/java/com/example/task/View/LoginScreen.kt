@@ -1,4 +1,4 @@
-package com.example.task.fragment
+package com.example.task.View
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -77,9 +77,3 @@ class LoginScreenFragment : Fragment() {
     }
 }
 
-//                val i = Intent(requireActivity(), ApiScreen::class.java)
-//                startActivity(i)
-//                requireActivity().finish()
-
-//            val action = LoginScreenFragmentDirections.actionLoginScreenFragmentToApiScreenFragment()
-//            findNavController().navigate(action)

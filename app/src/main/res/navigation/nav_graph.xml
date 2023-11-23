@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashScreenFragment">
+    app:startDestination="@id/loginScreenFragment">
 
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="com.example.task.fragment.SplashScreen"
+        android:name="com.example.task.View.SplashScreen"
         android:label="SplashScreenFragment"
         tools:layout="@layout/fragment_splash_screen">
         <action
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/loginScreenFragment"
-        android:name="com.example.task.fragment.LoginScreenFragment"
+        android:name="com.example.task.View.LoginScreenFragment"
         android:label="LoginScreenFragment"
         tools:layout="@layout/fragment_login_screen" >
         <action
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/apiScreenFragment"
-        android:name="com.example.task.fragment.ApiScreenFragment"
+        android:name="com.example.task.View.ApiScreenFragment"
         android:label="ApiScreenFragment"
         tools:layout="@layout/fragment_api_screen">
         <action
@@ -44,12 +44,12 @@
 
     <fragment
         android:id="@+id/detailScreenFragment"
-        android:name="com.example.task.fragment.DetailScreen"
+        android:name="com.example.task.View.DetailScreen"
         android:label="DetailScreenFragment"
         tools:layout="@layout/fragment_detail_screen" />
     <fragment
         android:id="@+id/homeScreenFragment"
-        android:name="com.example.task.fragment.HomeScreen"
+        android:name="com.example.task.View.HomeScreen"
         android:label="HomeScreenFragment"
         tools:layout="@layout/fragment_home_screen" >
         <action

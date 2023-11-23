@@ -1,11 +1,11 @@
-package com.example.task.room
+package com.example.task.Model
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.task.room.Constant.POST_TABLE
+import com.example.task.Model.Constant.POST_TABLE
 
 @Dao
 interface PostDao {
@@ -25,8 +25,6 @@ interface PostDao {
 
     @Query("DELETE FROM $POST_TABLE WHERE id = :postId")
     suspend fun deletePost(postId: Int)
-
-
 }
 
 

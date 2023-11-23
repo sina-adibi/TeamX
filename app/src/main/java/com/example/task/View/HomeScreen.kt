@@ -1,4 +1,4 @@
-package com.example.task.fragment
+package com.example.task.View
 
 import android.content.Context
 import android.content.Intent

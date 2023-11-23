@@ -10,4 +10,13 @@
     <style name="CustomFontStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:fontFamily">@font/iransans</item>
     </style>
+
+    <style name="Theme.Task.NoNoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.SplashScreenAndroid12.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.SplashScreenAndroid12.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

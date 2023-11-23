@@ -1,11 +1,11 @@
-package com.example.task.api
+package com.example.task.ViewModel
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task.R
-import com.example.task.room.PostDatabase
-import com.example.task.room.PostEntity
+import com.example.task.Model.PostDatabase
+import com.example.task.Model.PostEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,13 +40,11 @@ class PostAdapter(private val postEntityModel: MutableList<PostEntity>) :
             notifyDataSetChanged()
         }
     }
-
     fun updateData(newData: List<PostEntity>) {
         postEntityModel.clear()
         postEntityModel.addAll(newData)
         notifyDataSetChanged()
     }
-
 
     override fun getItemViewType(position: Int): Int {
         return R.layout.fragment_api_screen

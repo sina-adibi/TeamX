@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AppCompat" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#202020</item>
+
+        <item name="windowSplashScreenAnimatedIcon">@drawable/khavaran</item>
+
+        <item name="postSplashScreenTheme">@style/Theme.Task</item>
+
+<!--        <item name="android:windowSplashScreenAnimationDuration">1000</item>-->
+
+    </style>
+</resources>

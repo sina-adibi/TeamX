@@ -1,9 +1,11 @@
-package com.example.task.room
+package com.example.task.ViewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import java.util.Date
+import com.example.task.Model.PostDao
+import com.example.task.Model.PostEntity
+import com.example.task.Model.PostRepository
 
 class PostViewModel : ViewModel() {
 
@@ -21,7 +23,7 @@ class PostViewModel : ViewModel() {
     suspend fun insertMessage(
         postDao: PostDao,
         id: Int,
-        saveDate: String ,
+        saveDate: String,
         message: String,
         seen: String
     ) {

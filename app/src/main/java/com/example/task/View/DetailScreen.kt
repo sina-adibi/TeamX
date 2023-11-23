@@ -1,4 +1,4 @@
-package com.example.task.fragment
+package com.example.task.View
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

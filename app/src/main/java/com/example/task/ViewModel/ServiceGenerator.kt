@@ -1,7 +1,6 @@
-package com.example.task.api
+package com.example.task.ViewModel
 
-import androidx.lifecycle.LiveData
-import com.example.task.room.PostEntity
+import com.example.task.Model.PostEntity
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
