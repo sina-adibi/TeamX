@@ -2,78 +2,72 @@ package com.example.task.View
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.task.R
-import com.example.task.ViewModel.ApiService
-import com.example.task.ViewModel.PostAdapter
-import com.example.task.ViewModel.ServiceGenerator
-import com.example.task.ViewModel.MessageInsertCallback
 import com.example.task.Model.PostDao
 import com.example.task.Model.PostDatabase
+import com.example.task.ViewModel.PostAdapter
+import com.example.task.ViewModel.MessageInsertCallback
 import com.example.task.Model.PostEntity
+import com.example.task.databinding.FragmentApiScreenBinding
 import com.example.task.utils.openDialog
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class ApiScreenFragment : Fragment(), MessageInsertCallback {
 
     private lateinit var postAdapter: PostAdapter
     private lateinit var viewModel: ApiVM
+    private lateinit var binding: FragmentApiScreenBinding
+    private lateinit var postDao: PostDao
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_api_screen, container, false)
+        binding = FragmentApiScreenBinding.inflate(inflater, container, false)
+        val view = binding.root
         viewModel = ViewModelProvider(this).get(ApiVM::class.java)
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.myRecyclerView)
+        val recyclerView: RecyclerView = binding.myRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        postAdapter = PostAdapter(mutableListOf())
+//        postAdapter = PostAdapter(mutableListOf())
+        postDao = PostDatabase.getInstance(requireContext()).postDao()
+        postAdapter = PostAdapter(mutableListOf(), postDao)
         recyclerView.adapter = postAdapter
 
-        val btnOpenDialog: Button = view.findViewById(R.id.btDialog)
-        btnOpenDialog.setOnClickListener {
+        binding.btDialog.setOnClickListener {
             openDialog(layoutInflater, requireActivity(), this)
         }
+
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (isNetworkAvailable()) {
-            viewModel.posts.observe(viewLifecycleOwner) { posts ->
-                posts?.let {
-                    postAdapter.updateData(it)
-                }
+        viewModel.posts.observe(viewLifecycleOwner) { posts ->
+            posts?.let {
+                postAdapter.updateData(it)
             }
-
+        }
+        if (isNetworkAvailable() && !isApiFetched()) {
             if (!isApiFetched()) {
                 viewModel.fetchPostsFromApi()
                 setApiFetched()
-            } else {
-                viewModel.loadPostsFromDatabase()
             }
-        } else {
+        } else if (!isNetworkAvailable() && !isApiFetched()) {
             showNoInternetDialog()
+        } else if (isApiFetched()) {
+            viewModel.loadPostsFromDatabase()
         }
     }
 
@@ -82,24 +76,23 @@ class ApiScreenFragment : Fragment(), MessageInsertCallback {
         builder.setTitle("No Internet")
             .setMessage("Please check your internet connection and try again.")
             .setPositiveButton("OK") { dialog, _ ->
-                if (isNetworkAvailable()) {
-                    dialog.dismiss()
-                    viewModel.posts.observe(viewLifecycleOwner) { posts ->
-                        posts?.let {
-                            postAdapter.updateData(it)
-                        }
+                viewModel.posts.observe(viewLifecycleOwner) { posts ->
+                    posts?.let {
+                        postAdapter.updateData(it)
                     }
+                }
+                if (isNetworkAvailable() && !isApiFetched()) {
                     if (!isApiFetched()) {
                         viewModel.fetchPostsFromApi()
                         setApiFetched()
-                    } else {
-                        viewModel.loadPostsFromDatabase()
                     }
-                } else {
+                } else if (!isNetworkAvailable() && !isApiFetched()) {
                     showNoInternetDialog()
+                } else if (isApiFetched()) {
+                    viewModel.loadPostsFromDatabase()
                 }
             }
-            .setCancelable(false) // Prevent dismissing the dialog by tapping outside of it
+            .setCancelable(false)
 
         val dialog: AlertDialog = builder.create()
         dialog.show()

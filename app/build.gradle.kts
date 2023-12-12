@@ -39,6 +39,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    buildFeatures {
+        viewBinding=true
+    }
 }
 
 dependencies {
@@ -77,4 +80,7 @@ dependencies {
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.5")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    implementation ("com.jakewharton.timber:timber:5.0.1")
+
 }

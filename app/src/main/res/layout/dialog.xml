@@ -3,12 +3,135 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/TVtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Insert Message"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        android:padding="16dp" />
+
     <EditText
         android:id="@+id/etDialogInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter text" />
+        android:hint="Enter text"
+        android:padding="12dp"
+        android:textColor="#000000"
+        android:background="#F2F2F2"
+        android:layout_margin="8dp" />
 
+    <TextView
+        android:id="@+id/TXcity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="شهر : "
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:padding="8dp" />
 
+    <Spinner
+        android:id="@+id/spinnerDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:padding="8dp"
+        android:background="#F2F2F2"
+        android:layout_margin="8dp" />
+
+    <TextView
+        android:id="@+id/TXcar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="نوع ماشین : "
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:padding="8dp" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_margin="8dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkboxDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:textSize="16sp"
+                android:text="نا‍مشخص" />
+
+            <CheckBox
+                android:id="@+id/checkboxDialog2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:textSize="16sp"
+                android:text="اقتصادی" />
+
+            <CheckBox
+                android:id="@+id/checkboxDialog3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:textSize="16sp"
+                android:text="ممتاز" />
+
+            <CheckBox
+                android:id="@+id/checkboxDialog4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:textSize="16sp"
+                android:text="تاکسی" />
+
+            <CheckBox
+
+                
+                android:id="@+id/checkboxDialog5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:textSize="16sp"
+                android:text="نا‍مشخص" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:layout_margin="8dp">
+
+        <Button
+            android:id="@+id/BtCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_rounded"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/BtOk"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Okay"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_rounded"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
 
 </LinearLayout>

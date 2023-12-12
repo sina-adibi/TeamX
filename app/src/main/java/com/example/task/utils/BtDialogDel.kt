@@ -9,6 +9,7 @@ import com.example.task.Model.PostDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 fun btDialogDelete(
     context: Context,
@@ -18,16 +19,28 @@ fun btDialogDelete(
     updateCallback: () -> Unit
 ) {
     val positiveButtonClick = DialogInterface.OnClickListener { dialog, which ->
-        CoroutineScope(Dispatchers.IO).launch {
-            postDao.deletePost(postId)
+        CoroutineScope(Dispatchers.Main).launch {
+            val post = withContext(Dispatchers.IO) {
+                postDao.getPostById(postId)
+            }
+            if (post != null) {
+                if (post.isDeleted==false) {
+                    withContext(Dispatchers.IO) {
+                        postDao.softDeletePost(postId)
+                    }
+                    updateCallback()
+                } else {
+                    Toast.makeText(context, "Post is already deleted", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
-        updateCallback()
     }
 
     val negativeButtonClick = DialogInterface.OnClickListener { dialog, which ->
         Toast.makeText(
             context,
-            android.R.string.no, Toast.LENGTH_SHORT
+            "Deletion canceled",
+            Toast.LENGTH_SHORT
         ).show()
     }
 

@@ -14,9 +14,26 @@ object PostRepository {
         id: Int,
         saveDate: String,
         message: String,
-        seen: String
+        seen: String,
+        selectedOption: String,
+        isChecked: Boolean,
+        isChecked2: Boolean,
+        isChecked3: Boolean,
+        isChecked4: Boolean,
+        isChecked5: Boolean,
     ) {
-        val postEntity = PostEntity(id, saveDate, message, seen)
+        val postEntity = PostEntity(
+            id,
+            saveDate,
+            message,
+            seen,
+            selectedOption,
+            isChecked,
+            isChecked2,
+            isChecked3,
+            isChecked4,
+            isChecked5
+        )
         postDao.insertPost(postEntity)
     }
 
@@ -25,10 +42,27 @@ object PostRepository {
         id: Int,
         saveDate: String,
         message: String,
-        seen: String
+        seen: String,
+        selectedOption: String,
+        isChecked: Boolean,
+        isChecked2: Boolean,
+        isChecked3: Boolean,
+        isChecked4: Boolean,
+        isChecked5: Boolean,
     ) {
 
-        val newPost = PostEntity(id, saveDate, message, seen)
+        val newPost = PostEntity(
+            id,
+            saveDate,
+            message,
+            seen,
+            selectedOption,
+            isChecked,
+            isChecked2,
+            isChecked3,
+            isChecked4,
+            isChecked5
+        )
         PostRepository.postDao.insertPost(newPost)
     }
 }

@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [PostEntity::class], version = 5)
+@Database(entities = [PostEntity::class], version =9)
 abstract class PostDatabase : RoomDatabase() {
     abstract fun postDao(): PostDao
 

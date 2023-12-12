@@ -8,7 +8,24 @@
 
         <item name="postSplashScreenTheme">@style/Theme.Task</item>
 
-<!--        <item name="android:windowSplashScreenAnimationDuration">1000</item>-->
+        <item name="android:windowSplashScreenAnimationDuration">1000</item>
 
     </style>
 </resources>
+
+    <!--<resources>-->
+
+    <!--    <style name="Theme.Task" parent="@android:style/Theme.DeviceDefault" />-->
+
+    <!--    <style name="Theme.App.Starting" parent="Theme.SplashScreen">-->
+
+    <!--        <item name="windowSplashScreenBackground">@android:color/holo_blue_dark</item>-->
+
+    <!--        <item name="windowSplashScreenAnimatedIcon">@drawable/khavaran</item>-->
+
+    <!--        <item name="postSplashScreenTheme">@style/Theme.Task</item>-->
+
+    <!--        <item name="android:windowSplashScreenAnimationDuration">10000</item>-->
+
+    <!--    </style>-->
+    <!--</resources>-->

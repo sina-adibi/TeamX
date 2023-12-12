@@ -3,15 +3,18 @@ package com.example.task.ViewModel
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.task.R
+import com.example.task.Model.PostDao
 import com.example.task.Model.PostDatabase
 import com.example.task.Model.PostEntity
+import com.example.task.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PostAdapter(private val postEntityModel: MutableList<PostEntity>) :
-    RecyclerView.Adapter<PostViewHolder>() {
+class PostAdapter(
+    private val postEntityModel: MutableList<PostEntity>,
+    private val postDao: PostDao
+) : RecyclerView.Adapter<PostViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view =
@@ -32,12 +35,20 @@ class PostAdapter(private val postEntityModel: MutableList<PostEntity>) :
         val postDao = PostDatabase.getInstance(context).postDao()
         val postEntity = postEntityModel[position]
 
-        holder.bindView(context, postEntity, postDao, this,postEntityModel) {
+//        holder.bindView(context, postEntity, postDao, this,postEntityModel) {
+//            CoroutineScope(Dispatchers.IO).launch {
+//                postDao.deletePost(postEntity.id)
+//            }
+//            postEntityModel.remove(postEntity)
+//            notifyDataSetChanged()
+//        }
+
+        holder.bindView(context, postEntity, postDao, this, postEntityModel) {
             CoroutineScope(Dispatchers.IO).launch {
-                postDao.deletePost(postEntity.id)
+                postDao.softDeletePost(postEntity.id)
             }
             postEntityModel.remove(postEntity)
-            notifyDataSetChanged()
+            notifyItemRemoved(position)
         }
     }
     fun updateData(newData: List<PostEntity>) {
@@ -55,4 +66,17 @@ class PostAdapter(private val postEntityModel: MutableList<PostEntity>) :
         postEntityModel.add(postEntity)
         notifyItemInserted(postEntityModel.size - 1)
     }
+
+
+    fun deletePost(postEntity: PostEntity) {
+        CoroutineScope(Dispatchers.IO).launch {
+            postDao.softDeletePost(postEntity.id)
+        }
+        val position = postEntityModel.indexOf(postEntity)
+        if (position != -1) {
+            postEntityModel.removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
+
 }

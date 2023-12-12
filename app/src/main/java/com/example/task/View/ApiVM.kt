@@ -5,14 +5,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.task.ViewModel.ApiService
 import com.example.task.ViewModel.ServiceGenerator
 import com.example.task.Model.PostDao
 import com.example.task.Model.PostDatabase
 import com.example.task.Model.PostEntity
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,8 +27,7 @@ class ApiVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun loadPostsFromDatabase() {
-        postDao.getAllPosts().observeForever { posts -> _posts.value = posts
-        }
+        postDao.getAllPosts().observeForever { posts -> _posts.value = posts }
     }
 
 
@@ -47,6 +44,12 @@ class ApiVM(application: Application) : AndroidViewModel(application) {
                     posts?.let { fetchedPosts ->
                         viewModelScope.launch {
                             for (post in fetchedPosts) {
+                                post.checkbox1 = false
+                                post.checkbox2 = false
+                                post.checkbox3 = false
+                                post.checkbox4 = false
+                                post.checkbox5 = false
+                                post.spinnerSelection = "انتخاب نشده"
                                 postDao.insertPost(post)
                             }
                             loadPostsFromDatabase()
@@ -61,4 +64,5 @@ class ApiVM(application: Application) : AndroidViewModel(application) {
         })
     }
 }
+
 

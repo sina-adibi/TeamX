@@ -16,18 +16,30 @@ class PostViewModel : ViewModel() {
         id: Int,
         saveDate: String,
         message: String,
-        seen: String
+        seen: String,
+        selectedOption:String,
+        isChecked:Boolean,
+        isChecked2:Boolean,
+        isChecked3:Boolean,
+        isChecked4:Boolean,
+        isChecked5:Boolean,
     ) {
-        PostRepository.insertData(postDao, id, saveDate, message, seen)
+        PostRepository.insertData(postDao, id, saveDate, message, seen,selectedOption,isChecked,isChecked2,isChecked3,isChecked4,isChecked5)
     }
     suspend fun insertMessage(
         postDao: PostDao,
         id: Int,
         saveDate: String,
         message: String,
-        seen: String
+        seen: String,
+        selectedOption:String,
+        isChecked:Boolean,
+        isChecked2:Boolean,
+        isChecked3:Boolean,
+        isChecked4:Boolean,
+        isChecked5:Boolean,
     ) {
-        PostRepository.insertMessage(postDao, id, saveDate, message, seen)
+        PostRepository.insertMessage(postDao, id, saveDate, message, seen,selectedOption,isChecked,isChecked2,isChecked3,isChecked4,isChecked5)
     }
 
     fun getAllPosts(postDao: PostDao): LiveData<PostEntity>? {

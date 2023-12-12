@@ -15,8 +15,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
 import com.example.task.R
 import androidx.navigation.fragment.findNavController
+import com.example.task.databinding.FragmentLoginScreenBinding
 
 class LoginScreenFragment : Fragment() {
+    private lateinit var binding: FragmentLoginScreenBinding
     private lateinit var loginViewModel: LoginVM
 
     override fun onCreateView(
@@ -24,11 +26,8 @@ class LoginScreenFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_login_screen, container, false)
-
-        val emailEdt = view.findViewById<EditText>(R.id.idEdtEmail)
-        val passwordEdt = view.findViewById<EditText>(R.id.idEdtPassword)
-        val loginBtn = view.findViewById<Button>(R.id.idBtnLogin)
+        binding = FragmentLoginScreenBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         loginViewModel = ViewModelProvider(this).get(LoginVM::class.java)
 
@@ -36,9 +35,9 @@ class LoginScreenFragment : Fragment() {
             navigateToApiScreen()
         }
 
-        loginBtn.setOnClickListener {
-            val email = emailEdt.text.toString()
-            val password = passwordEdt.text.toString()
+        binding.idBtnLogin.setOnClickListener {
+            val email = binding.idEdtEmail.text.toString()
+            val password = binding.idEdtPassword.text.toString()
 
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                 Toast.makeText(
@@ -56,7 +55,7 @@ class LoginScreenFragment : Fragment() {
     }
 
     private fun navigateToApiScreen() {
-        val action: NavDirections = LoginScreenFragmentDirections.actionLoginScreenFragmentToApiScreenFragment()
+        val action: NavDirections = LoginScreenFragmentDirections.actionLoginScreenFragmentToViewPager2()
         findNavController().navigate(action)
     }
 }

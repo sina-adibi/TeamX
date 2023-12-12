@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginScreenFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/splashScreenFragment"
@@ -23,8 +23,8 @@
         android:label="LoginScreenFragment"
         tools:layout="@layout/fragment_login_screen" >
         <action
-            android:id="@+id/action_loginScreenFragment_to_apiScreenFragment"
-            app:destination="@id/apiScreenFragment" />
+            android:id="@+id/action_loginScreenFragment_to_viewPager2"
+            app:destination="@id/viewPager2" />
     </fragment>
 
     <fragment
@@ -35,9 +35,7 @@
         <action
             android:id="@+id/action_apiScreenFragment_to_detailScreen"
             app:destination="@id/detailScreenFragment">
-            <argument
-                android:name="post_message"
-                app:argType="string" />
+
         </action>
     </fragment>
 
@@ -47,17 +45,32 @@
         android:name="com.example.task.View.DetailScreen"
         android:label="DetailScreenFragment"
         tools:layout="@layout/fragment_detail_screen" />
+
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.example.task.View.HomeScreen"
         android:label="HomeScreenFragment"
         tools:layout="@layout/fragment_home_screen" >
         <action
-            android:id="@+id/action_homeScreenFragment_to_apiScreenFragment"
-            app:destination="@id/apiScreenFragment" />
-        <action
             android:id="@+id/action_homeScreenFragment_to_loginScreenFragment"
             app:destination="@id/loginScreenFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_viewPager22"
+            app:destination="@id/viewPager2" />
     </fragment>
+    <fragment
+        android:id="@+id/viewPager2"
+        android:name="com.example.task.View.ViewPager"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_view_pager" >
+        <action
+            android:id="@+id/action_viewPager2_to_detailScreen"
+            app:destination="@id/detailScreenFragment">
+            <argument
+                android:name="message"
+                app:argType="string" />
+        </action>
+    </fragment>
+
 
 </navigation>

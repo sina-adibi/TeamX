@@ -5,7 +5,20 @@
     <string name="enter_youe_email">Enter your Email</string>
     <string name="logout">Logout</string>
     <string name="delete">delete</string>
+    <string name="khavaran_company">khavaran company</string>
+
+    <string-array name="spinner_options">
+        <item>انتخاب نشده</item>
+        <item>مشهد</item>
+        <item>تهران</item>
+        <item>اصفهان</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="khavaran_company">khavaran company</string>
+
+    <string name="zero_time">00:00:00</string>
+    <string name="start">START</string>
+    <string name="pause">PAUSE</string>
+    <string name="reset">RESET</string>
+    <string name="play">PLAY</string>
 </resources>

@@ -17,6 +17,17 @@
         android:textSize="26sp"
         android:textColor="#311B92" />
 
+    <TextView
+        android:id="@+id/tvSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/btSeen"
         android:layout_width="match_parent"

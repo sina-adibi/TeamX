@@ -7,15 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.task.R
-
+import com.example.task.databinding.FragmentApiScreenBinding
+import com.example.task.databinding.FragmentDetailScreenBinding
 
 class DetailScreen : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_detail_screen, container, false)
+    private lateinit var binding: FragmentDetailScreenBinding
 
-        val message = arguments?.getString("post_message")
-        val tvmassage: TextView = view.findViewById(R.id.tvmassage)
-        tvmassage.text = message
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentDetailScreenBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        val message = arguments?.getString("message")
+        binding.tvmassage.text = message
 
         return view
     }
