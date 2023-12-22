@@ -1,5 +1,10 @@
 package com.example.task.View
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,27 +12,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.task.Model.PostDao
 import com.example.task.Model.PostDatabase
 import com.example.task.databinding.FragmentViewPagerBinding
+import com.example.task.utils.PostDeleteReceiver
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.tabs.TabLayout
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.google.android.material.tabs.TabLayoutMediator
 
 
 class ViewPager : Fragment() {
     private lateinit var binding: FragmentViewPagerBinding
+    private lateinit var badge: BadgeDrawable
     private lateinit var postDao: PostDao
-    private lateinit var deletedPostCount: LiveData<Int>
+    private lateinit var postDeleteReceiver: PostDeleteReceiver
+    private lateinit var sharedPreferences: SharedPreferences
+    private var deletedPostCount: Int=0
+    private val filter = IntentFilter("com.example.app.ACTION_POST_DELETED")
 
-
-    private lateinit var mediatorDeletedPostCount: MediatorLiveData<Int>
-//این فایل ها و کلاس های من در پروژه است و الان میخوام این فایل ها رو دسته بندی کنم لطفا راهنماییم کن
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,45 +43,51 @@ class ViewPager : Fragment() {
         binding = FragmentViewPagerBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val viewPager: ViewPager = binding.viewPager
-        viewPager.adapter = ApiScreenPagerAdapter(childFragmentManager)
+        val viewPager: ViewPager2 = binding.viewPagerScreen
+        viewPager.adapter = ApiScreenPagerAdapter(childFragmentManager, lifecycle)
 
         val tabLayout: TabLayout = binding.tabLayout
-        tabLayout.setupWithViewPager(viewPager)
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "API"
+                1 -> "Tab 2"
+                2 -> "Delete"
+                else -> throw IllegalArgumentException("Invalid tab position: $position")
+            }
+        }.attach()
 
-        val badge: BadgeDrawable = tabLayout.getTabAt(2)?.orCreateBadge ?: return view
+        badge = tabLayout.getTabAt(2)?.orCreateBadge ?: return view
+
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val savedCount = sharedPreferences.getInt("deletedPostCount", 0)
+        badge.number = savedCount
+        badge.isVisible = true
+
+        postDeleteReceiver = PostDeleteReceiver()
 
         postDao = PostDatabase.getInstance(requireContext()).postDao()
-
         deletedPostCount = postDao.getDeletedPostCount()
-        mediatorDeletedPostCount = MediatorLiveData()
-        mediatorDeletedPostCount.addSource(deletedPostCount) { count ->
-            mediatorDeletedPostCount.value = count
-        }
-
-        refreshDeletedPostCount(badge)
 
         return view
     }
 
-    fun refreshDeletedPostCount(badge: BadgeDrawable) {
-        mediatorDeletedPostCount.observe(viewLifecycleOwner) { count ->
-            badge.number = count
-            badge.isVisible = true
-        }
+    override fun onResume() {
+        super.onResume()
+        requireContext().registerReceiver(postDeleteReceiver, filter)
     }
 
-    fun deletePostAndUpdateCount(postId: Int) {
-        CoroutineScope(Dispatchers.Main).launch {
-            val newCount = postDao.getDeletedPostCount().value ?: 0
-            mediatorDeletedPostCount.value = newCount
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        requireContext().unregisterReceiver(postDeleteReceiver)
     }
 
+    inner class ApiScreenPagerAdapter(
+        fm: FragmentManager,
+        lifecycle: Lifecycle
+    ) : FragmentStateAdapter(fm, lifecycle) {
+        override fun getItemCount(): Int = 3
 
-    private inner class ApiScreenPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-
-        override fun getItem(position: Int): Fragment {
+        override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> ApiScreenFragment()
                 1 -> TimerScreen()
@@ -82,19 +95,18 @@ class ViewPager : Fragment() {
                 else -> throw IllegalArgumentException("Invalid tab position: $position")
             }
         }
+    }
 
-        override fun getCount(): Int {
-            return 3
-        }
-
-        override fun getPageTitle(position: Int): CharSequence {
-            return when (position) {
-                0 -> "api"
-                1 -> "Tab 2"
-                2 -> "delete"
-                else -> throw IllegalArgumentException("Invalid tab position: $position")
-            }
+    inner class PostDeleteReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val deletedPostCount = intent?.getIntExtra("deletedPostCount", 0) ?: 0
+            refreshDeletedPostCount(deletedPostCount)
         }
     }
 
+    fun refreshDeletedPostCount(count: Int) {
+        badge.number = count
+        badge.isVisible = true
+        sharedPreferences.edit().putInt("deletedPostCount", count).apply()
+    }
 }

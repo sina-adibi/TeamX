@@ -36,7 +36,7 @@ interface PostDao {
     @Query("SELECT * FROM $POST_TABLE WHERE isDeleted = 1")
     fun getDeletedPosts(): LiveData<List<PostEntity>>
     @Query("SELECT COUNT(*) FROM $POST_TABLE WHERE isDeleted = 1")
-    fun getDeletedPostCount(): LiveData<Int>
+    fun getDeletedPostCount(): Int
 
     @Query("SELECT * FROM $POST_TABLE WHERE id = :postId")
     suspend fun getPostById(postId: Int): PostEntity?

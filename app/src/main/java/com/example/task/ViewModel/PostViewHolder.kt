@@ -14,7 +14,6 @@ import com.example.task.Model.PostDao
 import com.example.task.Model.PostDatabase
 import com.example.task.Model.PostEntity
 import com.example.task.R
-import com.example.task.View.ViewPager
 import com.example.task.View.ViewPagerDirections
 import com.example.task.utils.btDialogDelete
 import kotlinx.coroutines.CoroutineScope
@@ -22,6 +21,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
+
+
 
 class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
@@ -107,8 +108,7 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         btnDeleteDialog.setOnClickListener {
             try {
                 btDialogDelete(context, postEntity.id, postDao, postAdapter) {
-                    // On successful deletion callback
-                    (context as ViewPager).deletePostAndUpdateCount(postEntity.id)
+                    updateCallback.invoke()
                 }
             } catch (e: Exception) {
                 Log.e("DeleteDialog", "Error deleting post: ${e.message}")

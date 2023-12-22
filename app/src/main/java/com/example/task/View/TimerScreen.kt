@@ -67,10 +67,10 @@ class TimerScreen : Fragment() {
                 val isRunning = intent?.getBooleanExtra(TimerService.IS_TIMER_RUNNING, false)!!
                 isTimerRunning = isRunning
 
-                val timeElapsed = intent.getIntExtra(TimerService.TIME_ELAPSED, 0)
+                val savedTimeElapsed = TimerService.sharedPreferences.getInt("TIME_ELAPSED", 0)
 
                 updateLayout(isTimerRunning)
-                updateTimerLayout(timeElapsed)
+                updateTimerLayout(savedTimeElapsed)
             }
         }
         requireActivity().registerReceiver(statusReceiver, statusFilter)
@@ -80,8 +80,9 @@ class TimerScreen : Fragment() {
         }
         timeReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-                val timeElapsed = intent?.getIntExtra(TimerService.TIME_ELAPSED, 0)!!
-                updateTimerLayout(timeElapsed)
+                val savedTimeElapsed = TimerService.sharedPreferences.getInt("TIME_ELAPSED", 0)
+
+                updateTimerLayout(savedTimeElapsed)
             }
         }
         requireActivity().registerReceiver(timeReceiver, timeFilter)

@@ -3,6 +3,7 @@ package com.example.task.utils
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.widget.Toast
 import com.example.task.ViewModel.PostAdapter
 import com.example.task.Model.PostDao
@@ -24,11 +25,15 @@ fun btDialogDelete(
                 postDao.getPostById(postId)
             }
             if (post != null) {
-                if (post.isDeleted==false) {
+                if (post.isDeleted == false) {
                     withContext(Dispatchers.IO) {
                         postDao.softDeletePost(postId)
                     }
                     updateCallback()
+                    val intent = Intent("com.example.app.ACTION_POST_DELETED")
+                    intent.putExtra("deletedPostCount",postDao.getDeletedPostCount() )
+                    context.sendBroadcast(intent)
+
                 } else {
                     Toast.makeText(context, "Post is already deleted", Toast.LENGTH_SHORT).show()
                 }

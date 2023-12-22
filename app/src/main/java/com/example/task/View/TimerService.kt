@@ -13,8 +13,11 @@ import android.graphics.Color
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.example.task.MainActivity
+import com.example.task.MainApplication
 import com.example.task.R
 import java.util.Timer
 import java.util.TimerTask
@@ -41,12 +44,13 @@ class TimerService : Service() {
         lateinit var sharedPreferences: SharedPreferences
 
     }
-
+    lateinit var context:Context
     private var timeElapsed: Int = 0
     private var isTimerRunning = false
 
     private var updateTimer = Timer()
     private var timer = Timer()
+
 
     private lateinit var notificationManager: NotificationManager
     override fun onBind(p0: Intent?): IBinder? {
@@ -88,6 +92,7 @@ class TimerService : Service() {
                 1000
             )
         }
+
     }
 
     private fun moveToBackground() {
@@ -113,6 +118,12 @@ class TimerService : Service() {
 
                         timerIntent.putExtra(TIME_ELAPSED, timeElapsed)
                         sendBroadcast(timerIntent)
+
+                        if (timeElapsed == 60) {
+                            val activityIntent = Intent(applicationContext, MainActivity::class.java)
+                            activityIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(activityIntent)
+                        }
                     }
                 },
                 0,
@@ -163,6 +174,8 @@ class TimerService : Service() {
             NotificationManager::class.java
         ) as NotificationManager
     }
+
+
     private fun buildNotification(): Notification {
         val title = if (isTimerRunning) {
             "Timer is running!"
@@ -170,7 +183,9 @@ class TimerService : Service() {
             "Timer is paused!"
         }
 
+
         val savedTimeElapsed = sharedPreferences.getInt("TIME_ELAPSED", -1)
+
 
         val hours: Int
         val minutes: Int
