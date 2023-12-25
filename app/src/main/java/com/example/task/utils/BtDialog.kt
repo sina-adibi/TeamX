@@ -40,7 +40,7 @@ fun openDialog(
     val etDialogInput = binding.etDialogInput
 
     val spinnerDialog = binding.spinnerDialog
-    val spinnerAdapter = ArrayAdapter.createFromResource(activity, R.array.spinner_options, android.R.layout.simple_spinner_item)
+    val spinnerAdapter = ArrayAdapter.createFromResource(activity, R.array.spinner_city, android.R.layout.simple_spinner_item)
     spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     spinnerDialog.adapter = spinnerAdapter
 

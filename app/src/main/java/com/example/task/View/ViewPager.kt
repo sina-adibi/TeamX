@@ -17,6 +17,7 @@ import androidx.lifecycle.LiveData
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.example.task.InfoFragment
 import com.example.task.Model.PostDao
 import com.example.task.Model.PostDatabase
 import com.example.task.databinding.FragmentViewPagerBinding
@@ -52,6 +53,7 @@ class ViewPager : Fragment() {
                 0 -> "API"
                 1 -> "Tab 2"
                 2 -> "Delete"
+                3 -> "Info"
                 else -> throw IllegalArgumentException("Invalid tab position: $position")
             }
         }.attach()
@@ -85,13 +87,14 @@ class ViewPager : Fragment() {
         fm: FragmentManager,
         lifecycle: Lifecycle
     ) : FragmentStateAdapter(fm, lifecycle) {
-        override fun getItemCount(): Int = 3
+        override fun getItemCount(): Int = 4
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> ApiScreenFragment()
                 1 -> TimerScreen()
                 2 -> DelApiScreen()
+                3 -> InfoFragment()
                 else -> throw IllegalArgumentException("Invalid tab position: $position")
             }
         }
