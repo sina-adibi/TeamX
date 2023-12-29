@@ -4,216 +4,282 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InfoFragment">
+    tools:context="View.InfoFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingRight="10dp"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp">
-        
+        android:paddingTop="10dp"
+        android:paddingRight="10dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/EtSelfPhone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:ems="10"
+                android:hint="SelfPhone"
                 android:inputType="phone"
-                android:hint="SelfPhone" />
+                android:minHeight="48dp" />
+
 
             <Spinner
                 android:id="@+id/spinnerCar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:layout_weight="0.7"
+                android:background="@drawable/border"
+                android:hint="Car Type"
                 android:minHeight="48dp"
-                android:hint="Car Type" />
+                android:enabled="false"/>
+
 
             <Spinner
                 android:id="@+id/spinnerCity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:layout_weight="0.7"
+                android:background="@drawable/border"
+                android:hint="City"
                 android:minHeight="48dp"
-                android:hint="City" />
+                android:enabled="false"/>
+
+
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/EtPhone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:ems="10"
+                android:hint="Phone"
                 android:inputType="phone"
-                android:hint="Phone" />
+                android:minHeight="48dp"/>
+
 
             <Spinner
                 android:id="@+id/spinnerCarType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="0.5"
+                android:background="@drawable/border"
+                android:hint="Car Type"
                 android:minHeight="48dp"
-                android:hint="Car Type" />
+                android:enabled="false"/>
+
+
 
             <Button
                 android:id="@+id/BtnDelete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="0.25"
                 android:background="@drawable/button_rounded"
                 android:text="*" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/spinnerService"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:layout_weight="0.6"
+                android:background="@drawable/border"
+                android:hint="Service"
                 android:minHeight="48dp"
-                android:hint="Service" />
+                android:enabled="false"/>
+
 
             <EditText
                 android:id="@+id/EtName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:ems="10"
+                android:hint="Name"
                 android:inputType="text"
-                android:hint="Name" />
+                android:minHeight="48dp"
+                android:enabled="false"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/EtAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:ems="10"
+                android:hint="Address"
                 android:inputType="text"
-                android:hint="Address" />
+                android:minHeight="48dp"
+                android:enabled="false"/>
+
 
             <Button
                 android:id="@+id/BtnAddress1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="0.25"
                 android:background="@drawable/button_rounded"
                 android:text="..." />
+
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/EtAddress2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:ems="10"
+                android:hint="Address"
                 android:inputType="text"
-                android:hint="Address" />
+                android:minHeight="48dp"
+                android:enabled="false"/>
+
 
             <Button
                 android:id="@+id/BtnAddress2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="0.25"
                 android:background="@drawable/button_rounded"
                 android:text="..." />
+
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/EtOffer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:ems="10"
+                android:hint="Offer"
                 android:inputType="textEmailAddress"
-                android:hint="Offer" />
+                android:minHeight="48dp"
+                android:enabled="false"/>
+
 
             <Spinner
                 android:id="@+id/spinnerCountService"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
+                android:layout_margin="5dp"
                 android:layout_weight="0.7"
+                android:background="@drawable/border"
+                android:hint="Service Count"
                 android:minHeight="48dp"
-                android:hint="Service Count" />
+                android:enabled="false"/>
+
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/EtInfo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:ems="10"
+                android:hint="Info"
                 android:inputType="text"
-                android:hint="Info" />
+                android:minHeight="48dp"
+                android:enabled="false"/>
+
 
             <Spinner
                 android:id="@+id/spinnerStop"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="0.7"
+                android:background="@drawable/border"
+                android:hint="Stop"
                 android:minHeight="48dp"
-                android:hint="Stop" />
+                android:enabled="false"/>
+
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/BtnMore"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="0.5"
                 android:background="@drawable/button_rounded"
                 android:text="More" />
@@ -222,9 +288,11 @@
                 android:id="@+id/BtnAccept"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_rounded"
                 android:text="Accept" />
+
         </LinearLayout>
 
     </LinearLayout>

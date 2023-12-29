@@ -11,17 +11,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LiveData
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.example.task.InfoFragment
 import com.example.task.Model.PostDao
 import com.example.task.Model.PostDatabase
 import com.example.task.databinding.FragmentViewPagerBinding
-import com.example.task.utils.PostDeleteReceiver
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
