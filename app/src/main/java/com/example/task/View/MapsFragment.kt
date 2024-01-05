@@ -53,12 +53,14 @@ class MapsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        locationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager =
+            requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         checkLocationEnabled()
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(callback)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
+
     private fun checkLocationEnabled() {
         locationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         if (!locationEnabled) {
