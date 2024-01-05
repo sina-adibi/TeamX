@@ -13,17 +13,21 @@ import android.graphics.Color
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
+import android.os.PowerManager
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.task.MainActivity
 import com.example.task.MainApplication
 import com.example.task.R
+import com.example.task.utils.AlarmReceiver
+import com.example.task.utils.AlarmWorker
 import java.util.Timer
 import java.util.TimerTask
 
 class TimerService : Service() {
-
     companion object {
         const val CHANNEL_ID = "Timer_Notifications"
 
@@ -44,17 +48,24 @@ class TimerService : Service() {
         lateinit var sharedPreferences: SharedPreferences
 
     }
-    lateinit var context:Context
+    private lateinit var context: Context
     private var timeElapsed: Int = 0
     private var isTimerRunning = false
 
     private var updateTimer = Timer()
     private var timer = Timer()
 
-
     private lateinit var notificationManager: NotificationManager
-    override fun onBind(p0: Intent?): IBinder? {
-        return null
+
+    private val binder = TimerBinder()
+
+    inner class TimerBinder : Binder() {
+        fun getService(): TimerService = this@TimerService
+    }
+
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return binder
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -62,7 +73,7 @@ class TimerService : Service() {
         getNotificationManager()
 
         when (intent?.getStringExtra(TIMER_ACTION)!!) {
-            START -> startTimer()
+            START -> startTimer(this)
             PAUSE -> pauseTimer()
             RESET -> resetTimer()
             GET_STATUS -> sendStatus()
@@ -99,36 +110,39 @@ class TimerService : Service() {
         updateTimer.cancel()
         stopForeground(true)
     }
-    private fun startTimer() {
+    private fun startTimer(context: Context) { // Modify the function signature
+        this.context = context // Initialize the context property
+
         isTimerRunning = true
 
         val savedTimeElapsed = sharedPreferences.getInt("TIME_ELAPSED", 0)
         timeElapsed = savedTimeElapsed
 
-            timer = Timer()
-            timer.scheduleAtFixedRate(
-                object : TimerTask() {
-                    override fun run() {
-                        val timerIntent = Intent()
-                        timerIntent.action = TIMER_TICK
+        timer = Timer()
+        timer.scheduleAtFixedRate(
+            object : TimerTask() {
+                override fun run() {
+                    val timerIntent = Intent()
+                    timerIntent.action = TIMER_TICK
 
-                        timeElapsed++
+                    timeElapsed++
 
-                        sharedPreferences.edit().putInt("TIME_ELAPSED", timeElapsed).apply()
+                    sharedPreferences.edit().putInt("TIME_ELAPSED", timeElapsed).apply()
 
-                        timerIntent.putExtra(TIME_ELAPSED, timeElapsed)
-                        sendBroadcast(timerIntent)
+                    timerIntent.putExtra(TIME_ELAPSED, timeElapsed)
+                    sendBroadcast(timerIntent)
 
-                        if (timeElapsed == 60) {
-                            val activityIntent = Intent(applicationContext, MainActivity::class.java)
-                            activityIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                            startActivity(activityIntent)
-                        }
+                    if (timeElapsed == 5) {
+                        val workRequest = OneTimeWorkRequestBuilder<AlarmWorker>()
+                            .build()
+                        WorkManager.getInstance(context).enqueue(workRequest)
                     }
-                },
-                0,
-                1000
-            )
+                }
+            },
+            0,
+            1000
+        )
+
         sendStatus()
     }
     private fun pauseTimer() {
