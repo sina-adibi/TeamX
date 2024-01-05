@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.example.task.utils.CustomDialog
 import com.example.task.R
 import com.example.task.databinding.FragmentInfoBinding
 
@@ -61,52 +60,40 @@ class InfoFragment : Fragment() {
 
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                binding.spinnerCar.setEnabled(false);
+                binding.spinnerCity.setEnabled(false);
+                binding.spinnerCarType.setEnabled(false);
+                binding.spinnerService.setEnabled(false);
+                binding.spinnerCountService.setEnabled(false);
+                binding.spinnerStop.setEnabled(false);
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
 
             override fun afterTextChanged(s: Editable?) {
-//                val isEmpty = phone.text.isBlank() && selfphone.text.isBlank()
+                val isEmpty = phone.text.isNullOrEmpty() && selfphone.text.isNullOrEmpty()
                 val selfPhoneText = selfphone.text.toString()
                 val isSelfPhoneValid = selfPhoneText.startsWith("09") && selfPhoneText.length == 4
 
-                binding.EtName.isEnabled = isSelfPhoneValid
-                binding.spinnerCar.isEnabled = isSelfPhoneValid
-                binding.EtName.isEnabled = isSelfPhoneValid
-                binding.EtInfo.isEnabled = isSelfPhoneValid
-                binding.EtAddress.isEnabled = isSelfPhoneValid
-                binding.EtAddress2.isEnabled = isSelfPhoneValid
-                binding.EtOffer.isEnabled = isSelfPhoneValid
-                binding.spinnerCar.isEnabled = isSelfPhoneValid
-                binding.spinnerCity.isEnabled = isSelfPhoneValid
-                binding.spinnerCarType.isEnabled = isSelfPhoneValid
-                binding.spinnerService.isEnabled = isSelfPhoneValid
-                binding.spinnerCountService.isEnabled = isSelfPhoneValid
-                binding.spinnerStop.isEnabled = isSelfPhoneValid
+                binding.EtName.isEnabled = !isEmpty && isSelfPhoneValid
+                binding.spinnerCar.isEnabled = !isEmpty && isSelfPhoneValid
+                binding.EtName.isEnabled = !isEmpty && isSelfPhoneValid
+                binding.EtInfo.isEnabled = !isEmpty && isSelfPhoneValid
+                binding.EtAddress.isEnabled = !isEmpty && isSelfPhoneValid
+                binding.EtAddress2.isEnabled = !isEmpty && isSelfPhoneValid
+                binding.EtOffer.isEnabled = !isEmpty && isSelfPhoneValid
+                binding.spinnerCar.isEnabled = !isEmpty && isSelfPhoneValid
+                binding.spinnerCity.isEnabled = !isEmpty && isSelfPhoneValid
+                binding.spinnerCarType.isEnabled = !isEmpty && isSelfPhoneValid
+                binding.spinnerService.isEnabled = !isEmpty && isSelfPhoneValid
+                binding.spinnerCountService.isEnabled = !isEmpty && isSelfPhoneValid
+                binding.spinnerStop.isEnabled = !isEmpty && isSelfPhoneValid
             }
         }
 
         phone.addTextChangedListener(textWatcher)
         selfphone.addTextChangedListener(textWatcher)
-
-
-        binding.BtnAddress1.setOnClickListener {
-            val addresses1 = listOf("Address 1", "Address 2", "Address 3")
-            val dialog =
-                CustomDialog.newInstance(addresses1, binding.EtAddress, binding.EtAddress2, true)
-            dialog.show(childFragmentManager, "MyCustomFragment")
-        }
-
-        binding.BtnAddress2.setOnClickListener {
-            val addresses2 = listOf("Address 4", "Address 5", "Address 6")
-            val dialog =
-                CustomDialog.newInstance(addresses2, binding.EtAddress, binding.EtAddress2, false)
-            dialog.show(childFragmentManager, "MyCustomFragment")
-        }
-
-
-
 
         return view
     }
@@ -130,7 +117,6 @@ class InfoFragment : Fragment() {
 
 
     }
-    fun onLogin(view: View) {
-        CustomDialog().show(childFragmentManager, "MyCustomFragment")
-    }
+
 }
+
