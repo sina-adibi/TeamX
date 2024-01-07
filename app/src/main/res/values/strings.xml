@@ -7,12 +7,14 @@
     <string name="delete">delete</string>
     <string name="khavaran_company">khavaran company</string>
 
-    <string-array name="spinner_options">
+    <string-array name="spinner_city">
         <item>انتخاب نشده</item>
         <item>مشهد</item>
         <item>تهران</item>
         <item>اصفهان</item>
     </string-array>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
