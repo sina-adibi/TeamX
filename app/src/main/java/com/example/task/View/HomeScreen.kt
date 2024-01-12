@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.task.MainActivity
+import com.example.task.ViewModel.HomeVM
 import com.example.task.databinding.FragmentHomeScreenBinding
 
 class HomeScreen : Fragment() {

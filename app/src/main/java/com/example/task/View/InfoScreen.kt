@@ -13,7 +13,7 @@ import com.example.task.R
 import com.example.task.databinding.FragmentInfoBinding
 import com.example.task.utils.CustomDialog
 
-class InfoFragment : Fragment() {
+class InfoScreen : Fragment() {
     private lateinit var binding: FragmentInfoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

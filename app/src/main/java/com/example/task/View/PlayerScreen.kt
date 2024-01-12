@@ -15,7 +15,7 @@ import android.content.Context
 import android.os.Environment
 import java.io.File
 
-class PlayerFragment : Fragment() {
+class PlayerScreen : Fragment() {
     private val exoPlayer by lazy { SimpleExoPlayer.Builder(requireContext()).build() }
     private lateinit var binding: FragmentPlayerBinding
 

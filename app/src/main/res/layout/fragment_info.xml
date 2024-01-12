@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:theme="@style/AppTheme"
 
-    tools:context=".View.InfoFragment">
+    tools:context=".View.InfoScreen">
 
 
     <ScrollView

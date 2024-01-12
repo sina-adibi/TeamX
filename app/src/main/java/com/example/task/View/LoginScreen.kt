@@ -1,20 +1,16 @@
 package com.example.task.View
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
-import com.example.task.R
 import androidx.navigation.fragment.findNavController
+import com.example.task.ViewModel.LoginVM
 import com.example.task.databinding.FragmentLoginScreenBinding
 
 class LoginScreenFragment : Fragment() {

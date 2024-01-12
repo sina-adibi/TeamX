@@ -1,4 +1,4 @@
-package com.example.task.View
+package com.example.task.ViewModel
 
 
 import android.app.Application
@@ -6,8 +6,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.task.ViewModel.ApiService
-import com.example.task.ViewModel.ServiceGenerator
 import com.example.task.Model.PostDao
 import com.example.task.Model.PostDatabase
 import com.example.task.Model.PostEntity

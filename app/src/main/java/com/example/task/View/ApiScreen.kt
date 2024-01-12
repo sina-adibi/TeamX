@@ -16,6 +16,7 @@ import com.example.task.Model.PostDatabase
 import com.example.task.ViewModel.PostAdapter
 import com.example.task.ViewModel.MessageInsertCallback
 import com.example.task.Model.PostEntity
+import com.example.task.ViewModel.ApiVM
 import com.example.task.databinding.FragmentApiScreenBinding
 import com.example.task.utils.openDialog
 

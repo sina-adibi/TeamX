@@ -25,7 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import android.provider.Settings
 import com.example.task.R
 
-class MapsFragment : Fragment() {
+class MapsScreen : Fragment() {
 
     private lateinit var googleMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient

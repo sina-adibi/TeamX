@@ -93,9 +93,9 @@ class ViewPager : Fragment() {
                 0 -> ApiScreenFragment()
                 1 -> TimerScreen()
                 2 -> DelApiScreen()
-                3 -> InfoFragment()
-                4 -> MapsFragment()
-                5 -> PlayerFragment()
+                3 -> InfoScreen()
+                4 -> MapsScreen()
+                5 -> PlayerScreen()
                 else -> throw IllegalArgumentException("Invalid tab position: $position")
             }
         }
