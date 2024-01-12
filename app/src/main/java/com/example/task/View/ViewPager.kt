@@ -42,13 +42,17 @@ class ViewPager : Fragment() {
         val viewPager: ViewPager2 = binding.viewPagerScreen
         viewPager.adapter = ApiScreenPagerAdapter(childFragmentManager, lifecycle)
 
+        viewPager.setUserInputEnabled(false);
+
         val tabLayout: TabLayout = binding.tabLayout
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "API"
-                1 -> "Tab 2"
+                1 -> "timer"
                 2 -> "Delete"
                 3 -> "Info"
+                4 -> "map"
+                5 -> "player"
                 else -> throw IllegalArgumentException("Invalid tab position: $position")
             }
         }.attach()
@@ -82,7 +86,7 @@ class ViewPager : Fragment() {
         fm: FragmentManager,
         lifecycle: Lifecycle
     ) : FragmentStateAdapter(fm, lifecycle) {
-        override fun getItemCount(): Int = 4
+        override fun getItemCount(): Int = 6
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
@@ -90,6 +94,8 @@ class ViewPager : Fragment() {
                 1 -> TimerScreen()
                 2 -> DelApiScreen()
                 3 -> InfoFragment()
+                4 -> MapsFragment()
+                5 -> PlayerFragment()
                 else -> throw IllegalArgumentException("Invalid tab position: $position")
             }
         }
