@@ -7,6 +7,7 @@
     tools:context=".View.ViewPager">
 
     <com.google.android.material.tabs.TabLayout
+        style="@style/MyTabLayout"
         android:id="@+id/tab_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

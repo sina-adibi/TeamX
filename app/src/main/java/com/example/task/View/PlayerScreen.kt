@@ -57,7 +57,7 @@ class PlayerScreen : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        exoPlayer.playWhenReady = true
+        exoPlayer.playWhenReady = false
     }
 
     override fun onStop() {
